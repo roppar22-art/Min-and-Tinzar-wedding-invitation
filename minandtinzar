@@ -3,244 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>မင်္ဂလာဖိတ်ကြားလွှာ - မင်းမင်းထွန်း & တင်ဇာနွယ်</title>
+    <title>Wedding Invitation - Min & Tinzar</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #f7ede2; /* နောက်ခံအရောင်နု */
-            --secondary-color: #81b29a; /* စာအိတ်စိမ်းရောင် */
-            --accent-color: #e07a5f; /* ဖယောင်းတံဆိပ်နီရောင် */
-            --text-color: #3d405b; /* စာသားအရောင် */
-            --gold-color: #c4a77d; /* ရွှေရောင် */
-        }
-
+        :root { --primary: #f7ede2; --secondary: #81b29a; --accent: #e07a5f; --text: #3d405b; --gold: #c4a77d; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Poppins', sans-serif; background-color: var(--primary-color); color: var(--text-color); overflow-x: hidden; text-align: center; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--primary); text-align: center; }
 
-        h1, h2, h3 { font-family: 'Playfair Display', serif; color: var(--gold-color); margin-bottom: 10px; }
-
-        /* --------------------------------------
-           စာအိတ် Animation Section (ဗီဒီယိုထဲကအတိုင်း)
-           -------------------------------------- */
+        /* Envelope Scene */
         #envelope-scene {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.8);
-            display: flex; justify-content: center; align-items: center; z-index: 1000;
-            transition: opacity 1s ease-out;
+            background-color: rgba(0,0,0,0.9); display: flex;
+            justify-content: center; align-items: center; z-index: 1000;
         }
-
         .envelope {
-            position: relative; width: 300px; height: 200px;
-            background-color: var(--secondary-color); /* စိမ်းရောင် */
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            cursor: pointer;
-            transition: transform 1s ease;
-        }
-
-        /* ဖယောင်းတံဆိပ် (Wax Seal) */
-        .wax-seal {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 70px; height: 70px;
-            background-color: var(--accent-color); /* နီရောင် */
-            border-radius: 50%;
-            border: 4px solid rgba(255,255,255,0.2);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            width: 280px; height: 180px; background: var(--secondary);
+            position: relative; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             display: flex; justify-content: center; align-items: center;
-            font-family: 'Playfair Display', serif; font-size: 24px; color: white; font-weight: bold;
-            z-index: 10; transition: transform 0.3s ease;
         }
-        .envelope:hover .wax-seal { transform: translate(-50%, -50%) scale(1.1); }
-
-        /* "You are invited" စာသား */
-        .invited-text {
-            position: absolute; bottom: 20px; width: 100%;
-            color: #d1e3d9; font-style: italic; font-size: 18px;
+        .wax-seal {
+            width: 70px; height: 70px; background: var(--accent);
+            border-radius: 50%; color: white; display: flex;
+            justify-content: center; align-items: center; font-family: 'Playfair Display';
+            font-size: 24px; font-weight: bold; border: 4px solid rgba(255,255,255,0.2);
         }
 
-        /* --------------------------------------
-           ပင်မ Website Section
-           -------------------------------------- */
-        #main-content { display: none; opacity: 0; transition: opacity 1s ease-in; padding-bottom: 50px; }
-
-        /* Hero / Introduction */
+        /* Main Content */
+        #main-content { display: none; opacity: 0; transition: opacity 1.5s ease; }
         .hero {
-            position: relative; width: 100%; height: 100vh;
-            background-image: url('wedding_hero.jpg'); /* !!! သင့်ပုံကို wedding_hero.jpg ဟုအမည်ပေးပြီး folder ထဲထည့်ပါ !!! */
+            height: 100vh; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('hero.jpg');
             background-size: cover; background-position: center;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            padding: 20px;
+            display: flex; flex-direction: column; justify-content: center; color: white;
         }
-        .hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); }
-        .hero-text { position: relative; z-index: 1; color: white; }
-        .hero h1 { color: white; font-size: 4rem; }
-        .hero p { font-size: 1.5rem; color: var(--gold-color); margin-top: 10px; }
+        .hero h1 { font-family: 'Playfair Display'; font-size: 3.5rem; margin-bottom: 10px; }
 
-        /* Countdown Section */
-        .countdown-section { background-color: white; padding: 60px 20px; margin-top: -50px; border-radius: 30px 30px 0 0; position: relative; z-index: 5; }
-        .countdown { display: flex; justify-content: center; gap: 20px; margin-top: 30px; }
-        .time-box { background-color: var(--secondary-color); color: white; padding: 20px; border-radius: 15px; min-width: 80px; }
-        .time-box .number { font-size: 2.5rem; font-weight: bold; }
-        .time-box .label { font-size: 0.9rem; opacity: 0.8; }
+        .countdown-section { padding: 80px 20px; background: white; border-radius: 30px 30px 0 0; margin-top: -30px; }
+        .countdown { display: flex; justify-content: center; gap: 10px; margin-top: 30px; }
+        .time-box { background: var(--secondary); color: white; padding: 15px; border-radius: 12px; min-width: 75px; }
+        .time-box span { display: block; font-size: 1.8rem; font-weight: bold; }
 
-        /* Our Story */
-        .story-section { padding: 80px 20px; background-color: #faf8f5; }
-        .timeline { position: relative; max-width: 600px; margin: 40px auto; text-align: left; }
-        .timeline::before { content: ''; position: absolute; left: 20px; top: 0; height: 100%; width: 2px; background: var(--gold-color); }
-        .timeline-item { margin-bottom: 30px; padding-left: 50px; position: relative; }
-        .timeline-item::after { content: ''; position: absolute; left: 16px; top: 5px; width: 10px; height: 10px; background: var(--accent-color); border-radius: 50%; }
-        .timeline-year { font-weight: bold; color: var(--accent-color); }
-        .timeline-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--gold-color); margin: 5px 0; }
+        .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 20px; background: #fff; }
+        .gallery img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; background: #eee; }
 
-        /* Gallery */
-        .gallery-section { padding: 80px 20px; background-color: white; }
-        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; max-width: 1000px; margin: 40px auto; }
-        .gallery img { width: 100%; height: 250px; object-fit: cover; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s ease; }
-        .gallery img:hover { transform: scale(1.05); }
-
-        /* Map */
-        .map-section { padding: 80px 20px; background-color: #faf8f5; }
-        .map-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 800px; margin: 40px auto; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
-        .map-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-        .location-details { margin-top: 20px; }
-
-        /* RSVP Form */
-        .rsvp-section { padding: 100px 20px; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('rsvp_bg.jpg'); background-size: cover; background-position: center; color: white; }
-        .rsvp-section h2 { color: white; }
-        .rsvp-form { max-width: 500px; margin: 40px auto; background: rgba(255,255,255,0.1); padding: 40px; border-radius: 20px; backdrop-filter: blur(5px); }
-        .rsvp-form input, .rsvp-form select { width: 100%; padding: 15px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); border-radius: 10px; color: white; font-family: 'Poppins', sans-serif; }
-        .rsvp-form select option { color: black; }
-        .rsvp-form button { background-color: var(--accent-color); color: white; padding: 15px 40px; border: none; border-radius: 10px; cursor: pointer; font-size: 1.1rem; font-weight: 600; text-transform: uppercase; transition: background-color 0.3s ease; width: 100%; }
-        .rsvp-form button:hover { background-color: #c9654d; }
-
+        .rsvp-section { padding: 80px 20px; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('rsvp_bg.jpg'); background-size: cover; color: white; }
+        .rsvp-form input, .rsvp-form select { width: 100%; max-width: 400px; padding: 15px; margin: 10px 0; border-radius: 8px; border: none; }
+        .rsvp-form button { background: var(--accent); color: white; padding: 15px 40px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; max-width: 400px; }
     </style>
 </head>
 <body>
 
-    <div id="envelope-scene">
-        <div class="envelope" onclick="openEnvelope()">
+    <div id="envelope-scene" onclick="openEnvelope()">
+        <div class="envelope">
             <div class="wax-seal">M&T</div>
-            <div class="invited-text">You are invited</div>
+            <p style="position:absolute; bottom:20px; color:#fff; font-style:italic;">Open Invitation</p>
         </div>
     </div>
 
     <div id="main-content">
-        
         <section class="hero">
-            <div class="hero-text">
-                <h2>Nous Nous Marions</h2>
-                <h1>Min & Tinzar</h1>
-                <p>22 NOVEMBRE 2026</p>
-            </div>
+            <p style="letter-spacing: 3px;">THE WEDDING OF</p>
+            <h1>Min & Tinzar</h1>
+            <p>22.11.2026</p>
         </section>
 
         <section class="countdown-section">
-            <h2>Count down to our special day</h2>
+            <h2 style="font-family: 'Playfair Display';">Countdown to Forever</h2>
             <div class="countdown">
-                <div class="time-box"><div class="number" id="days">00</div><div class="label">Days</div></div>
-                <div class="time-box"><div class="number" id="hours">00</div><div class="label">Hours</div></div>
-                <div class="time-box"><div class="number" id="minutes">00</div><div class="label">Mins</div></div>
-                <div class="time-box"><div class="number" id="seconds">00</div><div class="label">Secs</div></div>
+                <div class="time-box"><span id="days">00</span>Days</div>
+                <div class="time-box"><span id="hours">00</span>Hrs</div>
+                <div class="time-box"><span id="minutes">00</span>Mins</div>
+                <div class="time-box"><span id="seconds">00</span>Secs</div>
             </div>
         </section>
 
-        <section class="story-section">
-            <h2>Notre Parcours</h2>
-            <h3>Notre Histoire</h3>
-            <div class="timeline">
-                <div class="timeline-item"><div class="timeline-year">2020</div><div class="timeline-title">Notre Rencontre</div><p>We met by chance...</p></div>
-                <div class="timeline-item"><div class="timeline-year">2021</div><div class="timeline-title">Première Aventure</div><p>Our first date at...</p></div>
-                <div class="timeline-item"><div class="timeline-year">2023</div><div class="timeline-title">Avancer Ensemble</div><p>We decided to...</p></div>
-                <div class="timeline-item"><div class="timeline-year">2025</div><div class="timeline-title">La Demande</div><p>Will you marry me? Yes!</p></div>
-            </div>
-        </section>
-
-        <section class="gallery-section">
-            <h2>Our Memory</h2>
-            <div class="gallery">
-                <img src="gallery1.jpg" alt="Memory 1">
-                <img src="gallery2.jpg" alt="Memory 2">
-                <img src="gallery3.jpg" alt="Memory 3">
-                <img src="gallery4.jpg" alt="Memory 4">
-            </div>
-        </section>
-
-        <section class="map-section">
-            <h2>Détails de l'événement</h2>
-            <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3818.423456789!2d96.123456789!3d16.123456789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30c1ec1a9a8b11!2sNovotel%20Yangon%20Max!5e0!3m2!1sen!2smm!4v1700000000000!5m2!1sen!2smm" allowfullscreen="" loading="lazy"></iframe>
-            </div>
-            <div class="location-details">
-                <h3>Cérémonie de Mariage</h3>
-                <p>Mairie du 11ème arrondissement</p>
-                <p>5-7 Place Armand Carrel, 75019 Paris, France</p>
-            </div>
+        <section class="gallery">
+            <img src="gallery1.jpg" alt="Memory 1">
+            <img src="gallery2.jpg" alt="Memory 2">
+            <img src="gallery3.jpg" alt="Memory 3">
+            <img src="gallery4.jpg" alt="Memory 4">
         </section>
 
         <section class="rsvp-section">
-            <h2>Soyez Notre Invité</h2>
+            <h2 style="font-family: 'Playfair Display'; margin-bottom: 20px;">Join Our Celebration</h2>
             <div class="rsvp-form">
-                <form>
-                    <input type="text" placeholder="Full Name" required>
-                    <input type="email" placeholder="Email Address" required>
+                <form action="#">
+                    <input type="text" placeholder="Your Full Name" required>
                     <select required>
                         <option value="" disabled selected>Number of Guests</option>
                         <option value="1">1 Person</option>
                         <option value="2">2 People</option>
-                        <option value="3">3 People</option>
-                        <option value="4+">4+ People</option>
                     </select>
-                    <select required>
-                        <option value="" disabled selected>Will you attend?</option>
-                        <option value="yes">Accepts with Joy</option>
-                        <option value="no">Declines with Regret</option>
-                    </select>
-                    <button type="submit">Envoyer RSVP</button>
+                    <button type="submit">SUBMIT RSVP</button>
                 </form>
             </div>
         </section>
-
     </div>
 
     <script>
-        // စာအိတ်ဖွင့် Animation (ဗီဒီယိုထဲကအတိုင်း)
         function openEnvelope() {
             document.getElementById('envelope-scene').style.opacity = '0';
             setTimeout(() => {
                 document.getElementById('envelope-scene').style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
-                setTimeout(() => {
-                    document.getElementById('main-content').style.opacity = '1';
-                    startCountdown(); // စာအိတ်ဖွင့်ပြီးမှ countdown စ
-                }, 100);
+                setTimeout(() => { document.getElementById('main-content').style.opacity = '1'; }, 100);
             }, 1000);
         }
 
-        // Countdown Timer (ရက်စွဲ: နိုဝင်ဘာ ၂၂၊ ၂၀၂၆)
-        function startCountdown() {
-            const targetDate = new Date('November 22, 2026 16:00:00').getTime();
-
-            const timer = setInterval(() => {
-                const now = new Date().getTime();
-                const difference = targetDate - now;
-
-                if (difference <= 0) {
-                    clearInterval(timer);
-                    document.getElementById('days').innerHTML = '00';
-                    return;
-                }
-
-                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-                document.getElementById('days').innerHTML = days < 10 ? '0' + days : days;
-                document.getElementById('hours').innerHTML = hours < 10 ? '0' + hours : hours;
-                document.getElementById('minutes').innerHTML = minutes < 10 ? '0' + minutes : minutes;
-                document.getElementById('seconds').innerHTML = seconds < 10 ? '0' + seconds : seconds;
-            }, 1000);
-        }
+        const targetDate = new Date('Nov 22, 2026 09:00:00').getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+            document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+            document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById('minutes').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById('seconds').innerText = Math.floor((diff % (1000 * 60)) / 1000);
+        }, 1000);
     </script>
 </body>
 </html>
+
